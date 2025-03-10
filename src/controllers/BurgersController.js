@@ -8,6 +8,7 @@ export class BurgersController extends BaseController{
     this.router
       .get('', this.getAllBurgers)
       .post('', this.addBurger)
+      .delete('/:burgerId', this.removeBurger)
   }
   
   async getAllBurgers(request, response, next) {
@@ -24,6 +25,16 @@ export class BurgersController extends BaseController{
       const burgerData = request.body
       const burger = await burgersService.addBurger(burgerData)
       response.send(burger)
+    } catch (error) {
+      next(error)
+    }
+  }
+  
+  async removeBurger(request, response, next) {
+    try {
+      const burgerId = request.params.burgerId
+      const burgerToDelete = await burgersService.removeBurger(burgerId)
+      response.send(burgerToDelete)
     } catch (error) {
       next(error)
     }
