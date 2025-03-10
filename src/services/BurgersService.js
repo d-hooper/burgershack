@@ -1,9 +1,10 @@
-const burgers = [1, 2, 3]
+import { dbContext } from "../db/DbContext.js"
+
 class BurgersService {
-  getAllBurgers() {
+  async getAllBurgers() {
+    const burgers = await dbContext.Burgers.find()
     return burgers
   }
-
 }
 
 export const burgersService = new BurgersService()
